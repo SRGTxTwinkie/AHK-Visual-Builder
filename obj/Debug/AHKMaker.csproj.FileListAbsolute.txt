@@ -1,0 +1,8 @@
+C:\Users\zaned\source\repos\AHKMaker\bin\Debug\AHKMaker.exe.config
+C:\Users\zaned\source\repos\AHKMaker\bin\Debug\AHKMaker.exe
+C:\Users\zaned\source\repos\AHKMaker\bin\Debug\AHKMaker.pdb
+C:\Users\zaned\source\repos\AHKMaker\obj\Debug\AHKMaker.Form1.resources
+C:\Users\zaned\source\repos\AHKMaker\obj\Debug\AHKMaker.Properties.Resources.resources
+C:\Users\zaned\source\repos\AHKMaker\obj\Debug\AHKMaker.csproj.GenerateResource.cache
+C:\Users\zaned\source\repos\AHKMaker\obj\Debug\AHKMaker.exe
+C:\Users\zaned\source\repos\AHKMaker\obj\Debug\AHKMaker.pdb
