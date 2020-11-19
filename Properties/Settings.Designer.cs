@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AHKMaker.Properties
+namespace AHK_Visual_2._0.Properties
 {
 
 

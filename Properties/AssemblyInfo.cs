@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AHKMaker")]
+[assembly: AssemblyTitle("AHK Visual 2.0")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AHKMaker")]
+[assembly: AssemblyProduct("AHK Visual 2.0")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a31ec6bd-8f23-4aaa-b9db-28d7ab22d7d6")]
+[assembly: Guid("a16de808-f6ea-431a-8cb8-6ddc050cf77a")]
 
 // Version information for an assembly consists of the following four values:
 //
