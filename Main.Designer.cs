@@ -86,6 +86,10 @@
             this.MouseButtonLabel = new System.Windows.Forms.Label();
             this.NumOfClickInput = new System.Windows.Forms.NumericUpDown();
             this.NumOfClickLabel = new System.Windows.Forms.Label();
+            this.WaitTab = new System.Windows.Forms.TabPage();
+            this.HowLongLabel = new System.Windows.Forms.Label();
+            this.SleepInput = new System.Windows.Forms.NumericUpDown();
+            this.SleepInsertButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.TabMain.SuspendLayout();
             this.TabMouse.SuspendLayout();
@@ -100,6 +104,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.LoopAmountBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WaitTimeInput)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumOfClickInput)).BeginInit();
+            this.WaitTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SleepInput)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -338,6 +344,7 @@
             // 
             this.tabControl3.Controls.Add(this.ModKeyTab);
             this.tabControl3.Controls.Add(this.LoopTab);
+            this.tabControl3.Controls.Add(this.WaitTab);
             this.tabControl3.Location = new System.Drawing.Point(17, 22);
             this.tabControl3.Name = "tabControl3";
             this.tabControl3.SelectedIndex = 0;
@@ -762,6 +769,64 @@
             this.NumOfClickLabel.TabIndex = 15;
             this.NumOfClickLabel.Text = "Number Of Clicks";
             // 
+            // WaitTab
+            // 
+            this.WaitTab.Controls.Add(this.SleepInsertButton);
+            this.WaitTab.Controls.Add(this.SleepInput);
+            this.WaitTab.Controls.Add(this.HowLongLabel);
+            this.WaitTab.Location = new System.Drawing.Point(4, 22);
+            this.WaitTab.Name = "WaitTab";
+            this.WaitTab.Size = new System.Drawing.Size(196, 339);
+            this.WaitTab.TabIndex = 2;
+            this.WaitTab.Text = "Wait/Sleep";
+            this.WaitTab.UseVisualStyleBackColor = true;
+            // 
+            // HowLongLabel
+            // 
+            this.HowLongLabel.AutoSize = true;
+            this.HowLongLabel.Location = new System.Drawing.Point(11, 15);
+            this.HowLongLabel.Name = "HowLongLabel";
+            this.HowLongLabel.Size = new System.Drawing.Size(152, 13);
+            this.HowLongLabel.TabIndex = 0;
+            this.HowLongLabel.Text = "How long to wait (Milliseconds)";
+            // 
+            // SleepInput
+            // 
+            this.SleepInput.Increment = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.SleepInput.Location = new System.Drawing.Point(14, 31);
+            this.SleepInput.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+            this.SleepInput.Minimum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.SleepInput.Name = "SleepInput";
+            this.SleepInput.Size = new System.Drawing.Size(120, 20);
+            this.SleepInput.TabIndex = 1;
+            this.SleepInput.Value = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            // 
+            // SleepInsertButton
+            // 
+            this.SleepInsertButton.Location = new System.Drawing.Point(3, 57);
+            this.SleepInsertButton.Name = "SleepInsertButton";
+            this.SleepInsertButton.Size = new System.Drawing.Size(190, 23);
+            this.SleepInsertButton.TabIndex = 2;
+            this.SleepInsertButton.Text = "Add Sleep";
+            this.SleepInsertButton.UseVisualStyleBackColor = true;
+            this.SleepInsertButton.Click += new System.EventHandler(this.SleepInsertButton_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -792,6 +857,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.LoopAmountBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WaitTimeInput)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumOfClickInput)).EndInit();
+            this.WaitTab.ResumeLayout(false);
+            this.WaitTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SleepInput)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -857,6 +925,10 @@
         private System.Windows.Forms.Label XLabel;
         private System.Windows.Forms.TextBox MousePosYTextBox;
         private System.Windows.Forms.TextBox MousePosXTextBox;
+        private System.Windows.Forms.TabPage WaitTab;
+        private System.Windows.Forms.Button SleepInsertButton;
+        private System.Windows.Forms.NumericUpDown SleepInput;
+        private System.Windows.Forms.Label HowLongLabel;
     }
 }
 

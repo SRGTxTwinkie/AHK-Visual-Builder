@@ -227,11 +227,18 @@ namespace AHK_Visual_2._0
 
                 MainCode.AppendText(sb.ToString());
             }
+            Helper.Indent(MainCode, indent);
         }
 
         private void ExportButton_Click(object sender, EventArgs e)
         {
             CreateFile(Environment.CurrentDirectory + "\\" + FileNameInput.Text + ".ahk", MainCode.Text);
+        }
+
+        private void SleepInsertButton_Click(object sender, EventArgs e)
+        {
+            MainCode.AppendText("Sleep, " + SleepInput.Value + "\r\n");
+            Helper.Indent(MainCode, indent);
         }
     }
 }
