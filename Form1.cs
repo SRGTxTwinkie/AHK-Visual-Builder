@@ -1,29 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AHKMaker
 {
     public partial class Form1 : Form
     {
+        bool clickOpen = false;
         bool typeOpen = false;
         bool popupOpen = false;
         bool addWait = false;
+        bool loopOpen = false;
+        bool indent = false;
 
-        private void Visibility(Control[] CurrentControl, bool visibility)
+        private void IsIndented()
+        {
+            if (indent)
+            {
+                MainCode.AppendText("   ");
+            }
+        }
+
+        private bool Visibility(Control[] CurrentControl, bool visibility)
         {
             foreach (Control control in CurrentControl)
             {
                 control.Visible = visibility;
             }
+
+            return visibility;
         }
 
         private bool IsBlank(TextBox CurrentTextBox)
@@ -86,8 +94,28 @@ namespace AHKMaker
 
         private void ClickAction_Click(object sender, EventArgs e)
         {
-            String XLocation = "X";
-            String YLocation = "Y";
+            Control[] activeControls = { XYCheckBox, MouseButtonLabel, MouseCombo, NumClickLabel, NumClickInput, ClickSend };
+
+            if (clickOpen)
+            {
+                clickOpen = Visibility(activeControls, false);
+                return;
+            }
+            
+            clickOpen = Visibility(activeControls, true);
+
+        }
+
+        private void ClickSend_Click(object sender, EventArgs e)
+        {
+            Control[] activeControls = { XYCheckBox, MouseButtonLabel, MouseCombo, NumClickLabel, NumClickInput, ClickSend };
+            String XLocation = "";
+            String YLocation = "";
+            String MouseButton = MouseCombo.Text;
+            int numOfClicks = Convert.ToInt32(NumClickInput.Value);
+            bool click = false;
+
+
 
             if (XYCheckBox.Checked)
             {
@@ -95,26 +123,42 @@ namespace AHKMaker
                 YLocation = MousePosYTextBox.Text;
             }
 
-            MainCode.AppendText(String.Format("MouseMove, {0}, {1}\r\nClick\r\n", XLocation, YLocation));
+            if (ClickOption.Checked)
+            {
+                click = true;
+            }
+
+            if (click)
+            {
+                MainCode.AppendText(String.Format("MouseClick, {0}, {1}, {2}, {3} \r\n", MouseButton, XLocation, YLocation, numOfClicks));
+            }
+            else
+            {
+                MainCode.AppendText(String.Format("MouseMove, {0}, {1} \r\n", XLocation, YLocation));
+            }
+
+            clickOpen = Visibility(activeControls, false);
+            IsIndented();
         }
 
         private void AddType_Click(object sender, EventArgs e)
         {
             Control[] activeControls = { TypeTextLabel, TypeTextInput, TypeTextConfirm, InsertModKey, InsertModKeyLabel };
 
-            if (typeOpen == true)
+            if (typeOpen)
             {
                 typeOpen = false;
                 Visibility(activeControls, false);
                 return;
             }
 
-            Visibility(activeControls, true);
-            typeOpen = true;
+            typeOpen = Visibility(activeControls, true);
+            
 
             activeControls[1].Focus();
 
         }
+
 
         private void TypeTextConfirm_Click(object sender, EventArgs e)
         {
@@ -122,23 +166,23 @@ namespace AHKMaker
 
             MainCode.AppendText(String.Format("Send, {0}\r\n", TypeTextInput.Text));
 
-            Visibility(activeControls, false);
-            typeOpen = false;
+            typeOpen = Visibility(activeControls, false);
+            IsIndented();
         }
 
         private void AddPopup_Click(object sender, EventArgs e)
         {
             Control[] activeControls = { PopupTextLabel, PopupTextInput, PopupTitleInput, PopupTitleLabel, PopupConfirm };
 
-            if (popupOpen == true)
+            if (popupOpen)
             {
-                popupOpen = false;
-                Visibility(activeControls, false);
+                
+                popupOpen = Visibility(activeControls, false);
                 return;
             }
 
-            Visibility(activeControls, true);
-            popupOpen = true;
+            popupOpen = Visibility(activeControls, true);
+
 
             activeControls[1].Focus();
         }
@@ -149,33 +193,32 @@ namespace AHKMaker
 
             MainCode.AppendText(String.Format("MsgBox, ,{0}, {1}\r\n", PopupTitleInput.Text, PopupTextInput.Text));
 
-            Visibility(activeControls, false);
-            popupOpen = false;
+            popupOpen = Visibility(activeControls, false);
+            IsIndented();
         }
 
         private void AddWait_Click(object sender, EventArgs e)
         {
             Control[] activeControls = { WaitLabel, WaitInput, WaitConfirm };
 
-            if (addWait == true)
+            if (addWait)
             {
-                addWait = false;
-                Visibility(activeControls, false);
+                addWait = Visibility(activeControls, false);
                 return;
             }
 
-            Visibility(activeControls, true);
-            addWait = true;
+            addWait = Visibility(activeControls, true);
         }
 
         private void WaitConfirm_Click(object sender, EventArgs e)
         {
             Control[] activeControls = { WaitLabel, WaitInput, WaitConfirm };
 
-            Visibility(activeControls, false);
-            addWait = false;
+            addWait = Visibility(activeControls, false);
 
             MainCode.AppendText(String.Format("Sleep, {0}\r\n", WaitInput.Text));
+
+            IsIndented();
         }
 
         private void AddCustomMod_Click(object sender, EventArgs e)
@@ -206,6 +249,7 @@ namespace AHKMaker
             }
 
             StoredMod.Text = String.Format("{0}{1}", modifier, ModKeyInput.Text);
+            IsIndented();
         }
 
         private void HotKey_Click(object sender, EventArgs e)
@@ -222,6 +266,38 @@ namespace AHKMaker
         private void button3_Click(object sender, EventArgs e)
         {
             CreateFile(Environment.CurrentDirectory + "\\" + FileNameInput.Text + ".ahk", MainCode.Text);
+        }
+
+        private void AddLoop_Click(object sender, EventArgs e)
+        {
+            Control[] activeControls = { LoopAmountLabel, NumOfLoops, LoopAdd };
+
+            if (loopOpen)
+            {
+                loopOpen = Visibility(activeControls, false);
+                return;
+            }
+
+            loopOpen = Visibility(activeControls, true);
+
+        }
+
+        private void LoopAdd_Click(object sender, EventArgs e)
+        {
+            int numOfLoops = Convert.ToInt32(NumOfLoops.Value);
+
+            EndLoop.Visible = true;
+            indent = true;
+
+            MainCode.AppendText("Loop, " + numOfLoops + " { \r\n    ");
+        }
+
+        private void EndLoop_Click(object sender, EventArgs e)
+        {
+            EndLoop.Visible = false;
+            indent = false;
+
+            MainCode.AppendText("}\r\n");
         }
     }
 }
