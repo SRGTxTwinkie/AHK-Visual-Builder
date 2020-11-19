@@ -78,8 +78,10 @@ namespace AHKMaker
 
             Thread.Sleep((Convert.ToInt32(SleepTimeUpDown.Value) * 1000));
 
-            MousePosXTextBox.Text = Cursor.Position.X.ToString();
-            MousePosYTextBox.Text = Cursor.Position.Y.ToString();
+            Point p = Control.MousePosition;
+
+            MousePosXTextBox.Text = p.X.ToString();
+            MousePosYTextBox.Text = p.Y.ToString();
         }
 
         private void ClickAction_Click(object sender, EventArgs e)

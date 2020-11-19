@@ -71,14 +71,14 @@
             this.MousePositionButton = new System.Windows.Forms.Button();
             this.ClickAction = new System.Windows.Forms.Button();
             this.Export = new System.Windows.Forms.TabPage();
-            this.Credits = new System.Windows.Forms.TabPage();
-            this.FileNameInput = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.FileNameInput = new System.Windows.Forms.TextBox();
+            this.Credits = new System.Windows.Forms.TabPage();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.Main.SuspendLayout();
             this.MainControl.SuspendLayout();
@@ -95,7 +95,8 @@
             this.MainCode.Name = "MainCode";
             this.MainCode.Size = new System.Drawing.Size(468, 511);
             this.MainCode.TabIndex = 1;
-            this.MainCode.Text = "#NoEnv\r\n#Warn\r\nSendMode Input\r\nSetWorkingDir %A_ScriptDir%\r\n\r\n";
+            this.MainCode.Text = "#NoEnv\r\n#Warn\r\nSendMode Input\r\nSetWorkingDir %A_ScriptDir%\r\nCoordMode, Mouse, Scr" +
+    "een\r\n\r\n";
             // 
             // tabControl1
             // 
@@ -555,6 +556,41 @@
             this.Export.Text = "Export To File";
             this.Export.UseVisualStyleBackColor = true;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 79);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(163, 26);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "File will be put on the in the same\r\ndirectory as the Builder is in.";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(6, 53);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(106, 23);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "Export To File";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 11);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(54, 13);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "File Name";
+            // 
+            // FileNameInput
+            // 
+            this.FileNameInput.Location = new System.Drawing.Point(3, 27);
+            this.FileNameInput.Name = "FileNameInput";
+            this.FileNameInput.Size = new System.Drawing.Size(121, 20);
+            this.FileNameInput.TabIndex = 0;
+            // 
             // Credits
             // 
             this.Credits.Controls.Add(this.textBox3);
@@ -567,49 +603,16 @@
             this.Credits.Text = "Credits";
             this.Credits.UseVisualStyleBackColor = true;
             // 
-            // FileNameInput
+            // textBox3
             // 
-            this.FileNameInput.Location = new System.Drawing.Point(3, 27);
-            this.FileNameInput.Name = "FileNameInput";
-            this.FileNameInput.Size = new System.Drawing.Size(121, 20);
-            this.FileNameInput.TabIndex = 0;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 11);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(54, 13);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "File Name";
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(6, 53);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(106, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Export To File";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 79);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(163, 26);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "File will be put on the in the same\r\ndirectory as the Builder is in.";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(59, 16);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(62, 13);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Created By:";
+            this.textBox3.Location = new System.Drawing.Point(21, 58);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(146, 147);
+            this.textBox3.TabIndex = 2;
+            this.textBox3.Text = resources.GetString("textBox3.Text");
+            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox2
             // 
@@ -621,16 +624,14 @@
             this.textBox2.Text = "Zane Reisbig";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox3
+            // label9
             // 
-            this.textBox3.Location = new System.Drawing.Point(21, 58);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(146, 147);
-            this.textBox3.TabIndex = 2;
-            this.textBox3.Text = resources.GetString("textBox3.Text");
-            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(59, 16);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(62, 13);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Created By:";
             // 
             // Form1
             // 
