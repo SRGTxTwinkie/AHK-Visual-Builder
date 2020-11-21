@@ -2,7 +2,7 @@
 This tool lets you build Auto Hot Key Scripts quickly and effeciently.
 Contains most of the basic things needed for simple script creating, all at the press of a button.
 
-##Features
+## Features
 Mouse Position Tracking, for easy mouse movements.
 Mouse Clicking and number of click controls
 Mouse Button Controls
