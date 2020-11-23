@@ -25,11 +25,14 @@ namespace AHK_Visual_2._0
             }
         }
 
-        public static void Indent(TextBox tb, bool indent)
+        public static void Indent(TextBox tb, int activeLoops, bool indent)
         {
             if(indent)
             {
-                tb.AppendText("                ");
+                for (int i = 0; i < activeLoops; i++)
+                {
+                    tb.AppendText("                ");
+                }
             }
         }
 
@@ -92,7 +95,7 @@ namespace AHK_Visual_2._0
             }
             else
             {
-                textBox.AppendText(toPut);
+                textBox.AppendText(sb.ToString());
             }
         }
 

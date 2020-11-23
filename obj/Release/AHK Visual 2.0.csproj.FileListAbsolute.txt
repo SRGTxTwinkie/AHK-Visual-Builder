@@ -1,0 +1,8 @@
+C:\Users\zaned\source\repos\AHK Visual 2.0\bin\Release\AHK Visual 2.0.exe.config
+C:\Users\zaned\source\repos\AHK Visual 2.0\bin\Release\AHK Visual 2.0.exe
+C:\Users\zaned\source\repos\AHK Visual 2.0\bin\Release\AHK Visual 2.0.pdb
+C:\Users\zaned\source\repos\AHK Visual 2.0\obj\Release\AHK_Visual_2._0.MainForm.resources
+C:\Users\zaned\source\repos\AHK Visual 2.0\obj\Release\AHK_Visual_2._0.Properties.Resources.resources
+C:\Users\zaned\source\repos\AHK Visual 2.0\obj\Release\AHK Visual 2.0.csproj.GenerateResource.cache
+C:\Users\zaned\source\repos\AHK Visual 2.0\obj\Release\AHK Visual 2.0.exe
+C:\Users\zaned\source\repos\AHK Visual 2.0\obj\Release\AHK Visual 2.0.pdb

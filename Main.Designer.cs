@@ -74,19 +74,27 @@
             this.CurrYInput = new System.Windows.Forms.TextBox();
             this.CurrXInput = new System.Windows.Forms.TextBox();
             this.TabKeyBoard = new System.Windows.Forms.TabPage();
+            this.CheckForLargeTextBox = new System.Windows.Forms.CheckBox();
+            this.AddToMainCode = new System.Windows.Forms.Button();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.TabForPageOne = new System.Windows.Forms.TabPage();
-            this.ModkeyButton = new System.Windows.Forms.Button();
             this.ButtonToAddCurrentVariable = new System.Windows.Forms.Button();
-            this.AddToMainCode = new System.Windows.Forms.Button();
             this.SpecialKeyLabel = new System.Windows.Forms.Label();
             this.SpecialKeyInput = new System.Windows.Forms.ComboBox();
             this.ComboForAllVariables = new System.Windows.Forms.ComboBox();
             this.CheckForAddToMsgBox = new System.Windows.Forms.CheckBox();
             this.TabForPageTwo = new System.Windows.Forms.TabPage();
+            this.ModkeyButton = new System.Windows.Forms.Button();
             this.ButtonForCurrentMouseVariable = new System.Windows.Forms.Button();
             this.ButtonToAddMouseVars = new System.Windows.Forms.Button();
+            this.TabForPageThree = new System.Windows.Forms.TabPage();
+            this.LabelForVarEqualTo = new System.Windows.Forms.Label();
+            this.ButtonForVarEqualTo = new System.Windows.Forms.Button();
+            this.ComboForEqualVarTwo = new System.Windows.Forms.ComboBox();
+            this.LabelForEqualVars = new System.Windows.Forms.Label();
+            this.ComboForEqualVarOne = new System.Windows.Forms.ComboBox();
             this.TabForPageFour = new System.Windows.Forms.TabPage();
+            this.CheckForMoveInsertionPoint = new System.Windows.Forms.CheckBox();
             this.CheckForSend = new System.Windows.Forms.CheckBox();
             this.CheckToInsertAtCursor = new System.Windows.Forms.CheckBox();
             this.CheckForNewLine = new System.Windows.Forms.CheckBox();
@@ -103,7 +111,6 @@
             this.MsgBoxTitle = new System.Windows.Forms.TextBox();
             this.MsgBoxTextLabel = new System.Windows.Forms.Label();
             this.SendMsgBoxButton = new System.Windows.Forms.Button();
-            this.CheckForConfirmClear = new System.Windows.Forms.CheckBox();
             this.TextInput = new System.Windows.Forms.TextBox();
             this.TextTypeLabel = new System.Windows.Forms.Label();
             this.ButtonForClearingTextWindow = new System.Windows.Forms.Button();
@@ -147,12 +154,6 @@
             this.EndHotKey = new System.Windows.Forms.Button();
             this.ButtonForAddVarGlobal = new System.Windows.Forms.Button();
             this.InputForQuickValue = new System.Windows.Forms.TextBox();
-            this.TabForPageThree = new System.Windows.Forms.TabPage();
-            this.ComboForEqualVarOne = new System.Windows.Forms.ComboBox();
-            this.LabelForEqualVars = new System.Windows.Forms.Label();
-            this.ComboForEqualVarTwo = new System.Windows.Forms.ComboBox();
-            this.ButtonForVarEqualTo = new System.Windows.Forms.Button();
-            this.LabelForVarEqualTo = new System.Windows.Forms.Label();
             this.MainTabs.SuspendLayout();
             this.TabMain.SuspendLayout();
             this.TabMouse.SuspendLayout();
@@ -166,6 +167,7 @@
             this.tabControl2.SuspendLayout();
             this.TabForPageOne.SuspendLayout();
             this.TabForPageTwo.SuspendLayout();
+            this.TabForPageThree.SuspendLayout();
             this.TabForPageFour.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabInputBox.SuspendLayout();
@@ -180,7 +182,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.SleepInput)).BeginInit();
             this.VariablesTab.SuspendLayout();
             this.toolStrip2.SuspendLayout();
-            this.TabForPageThree.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainTabs
@@ -330,7 +331,7 @@
             // NumOfClickLabel
             // 
             this.NumOfClickLabel.AutoSize = true;
-            this.NumOfClickLabel.Location = new System.Drawing.Point(25, 295);
+            this.NumOfClickLabel.Location = new System.Drawing.Point(26, 267);
             this.NumOfClickLabel.Name = "NumOfClickLabel";
             this.NumOfClickLabel.Size = new System.Drawing.Size(89, 13);
             this.NumOfClickLabel.TabIndex = 15;
@@ -338,7 +339,7 @@
             // 
             // NumOfClickInput
             // 
-            this.NumOfClickInput.Location = new System.Drawing.Point(6, 311);
+            this.NumOfClickInput.Location = new System.Drawing.Point(10, 283);
             this.NumOfClickInput.Minimum = new decimal(new int[] {
             1,
             0,
@@ -356,7 +357,7 @@
             // MouseButtonLabel
             // 
             this.MouseButtonLabel.AutoSize = true;
-            this.MouseButtonLabel.Location = new System.Drawing.Point(24, 250);
+            this.MouseButtonLabel.Location = new System.Drawing.Point(25, 222);
             this.MouseButtonLabel.Name = "MouseButtonLabel";
             this.MouseButtonLabel.Size = new System.Drawing.Size(73, 13);
             this.MouseButtonLabel.TabIndex = 13;
@@ -369,7 +370,7 @@
             "Left",
             "Right",
             "Middle"});
-            this.comboBox1.Location = new System.Drawing.Point(6, 266);
+            this.comboBox1.Location = new System.Drawing.Point(10, 238);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(120, 21);
             this.comboBox1.TabIndex = 10;
@@ -380,7 +381,7 @@
             this.XYCheck.AutoSize = true;
             this.XYCheck.Checked = true;
             this.XYCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.XYCheck.Location = new System.Drawing.Point(10, 210);
+            this.XYCheck.Location = new System.Drawing.Point(10, 192);
             this.XYCheck.Name = "XYCheck";
             this.XYCheck.Size = new System.Drawing.Size(86, 17);
             this.XYCheck.TabIndex = 9;
@@ -392,7 +393,7 @@
             this.ClickCheck.AutoSize = true;
             this.ClickCheck.Checked = true;
             this.ClickCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ClickCheck.Location = new System.Drawing.Point(10, 187);
+            this.ClickCheck.Location = new System.Drawing.Point(10, 169);
             this.ClickCheck.Name = "ClickCheck";
             this.ClickCheck.Size = new System.Drawing.Size(49, 17);
             this.ClickCheck.TabIndex = 8;
@@ -401,7 +402,7 @@
             // 
             // CreateClickButton
             // 
-            this.CreateClickButton.Location = new System.Drawing.Point(6, 154);
+            this.CreateClickButton.Location = new System.Drawing.Point(6, 140);
             this.CreateClickButton.Name = "CreateClickButton";
             this.CreateClickButton.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.CreateClickButton.Size = new System.Drawing.Size(188, 23);
@@ -689,9 +690,10 @@
             // 
             // TabKeyBoard
             // 
+            this.TabKeyBoard.Controls.Add(this.CheckForLargeTextBox);
+            this.TabKeyBoard.Controls.Add(this.AddToMainCode);
             this.TabKeyBoard.Controls.Add(this.tabControl2);
             this.TabKeyBoard.Controls.Add(this.tabControl1);
-            this.TabKeyBoard.Controls.Add(this.CheckForConfirmClear);
             this.TabKeyBoard.Controls.Add(this.TextInput);
             this.TabKeyBoard.Controls.Add(this.TextTypeLabel);
             this.TabKeyBoard.Controls.Add(this.ButtonForClearingTextWindow);
@@ -702,22 +704,42 @@
             this.TabKeyBoard.Text = "Text";
             this.TabKeyBoard.UseVisualStyleBackColor = true;
             // 
+            // CheckForLargeTextBox
+            // 
+            this.CheckForLargeTextBox.AutoSize = true;
+            this.CheckForLargeTextBox.Location = new System.Drawing.Point(225, 13);
+            this.CheckForLargeTextBox.Name = "CheckForLargeTextBox";
+            this.CheckForLargeTextBox.Size = new System.Drawing.Size(15, 14);
+            this.CheckForLargeTextBox.TabIndex = 20;
+            this.CheckForLargeTextBox.UseVisualStyleBackColor = true;
+            this.CheckForLargeTextBox.CheckedChanged += new System.EventHandler(this.CheckForLargeTextBox_CheckedChanged);
+            // 
+            // AddToMainCode
+            // 
+            this.AddToMainCode.Location = new System.Drawing.Point(4, 57);
+            this.AddToMainCode.Name = "AddToMainCode";
+            this.AddToMainCode.Size = new System.Drawing.Size(190, 23);
+            this.AddToMainCode.TabIndex = 10;
+            this.AddToMainCode.Text = "Send to Code Base";
+            this.AddToMainCode.UseVisualStyleBackColor = true;
+            this.AddToMainCode.Click += new System.EventHandler(this.AddToMainCode_Click);
+            // 
             // tabControl2
             // 
             this.tabControl2.Controls.Add(this.TabForPageOne);
             this.tabControl2.Controls.Add(this.TabForPageTwo);
             this.tabControl2.Controls.Add(this.TabForPageThree);
             this.tabControl2.Controls.Add(this.TabForPageFour);
-            this.tabControl2.Location = new System.Drawing.Point(4, 83);
+            this.tabControl2.Location = new System.Drawing.Point(4, 86);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(243, 173);
+            this.tabControl2.Size = new System.Drawing.Size(240, 177);
             this.tabControl2.TabIndex = 19;
             // 
             // TabForPageOne
             // 
+            this.TabForPageOne.AutoScroll = true;
             this.TabForPageOne.Controls.Add(this.ButtonToAddCurrentVariable);
-            this.TabForPageOne.Controls.Add(this.AddToMainCode);
             this.TabForPageOne.Controls.Add(this.SpecialKeyLabel);
             this.TabForPageOne.Controls.Add(this.SpecialKeyInput);
             this.TabForPageOne.Controls.Add(this.ComboForAllVariables);
@@ -725,20 +747,10 @@
             this.TabForPageOne.Location = new System.Drawing.Point(4, 22);
             this.TabForPageOne.Name = "TabForPageOne";
             this.TabForPageOne.Padding = new System.Windows.Forms.Padding(3);
-            this.TabForPageOne.Size = new System.Drawing.Size(235, 147);
+            this.TabForPageOne.Size = new System.Drawing.Size(232, 151);
             this.TabForPageOne.TabIndex = 0;
             this.TabForPageOne.Text = "Page 1";
             this.TabForPageOne.UseVisualStyleBackColor = true;
-            // 
-            // ModkeyButton
-            // 
-            this.ModkeyButton.Location = new System.Drawing.Point(6, 32);
-            this.ModkeyButton.Name = "ModkeyButton";
-            this.ModkeyButton.Size = new System.Drawing.Size(112, 23);
-            this.ModkeyButton.TabIndex = 1;
-            this.ModkeyButton.Text = "Add Saved Modkey";
-            this.ModkeyButton.UseVisualStyleBackColor = true;
-            this.ModkeyButton.Click += new System.EventHandler(this.ModkeyButton_Click);
             // 
             // ButtonToAddCurrentVariable
             // 
@@ -750,16 +762,6 @@
             this.ButtonToAddCurrentVariable.Text = "Add Selected Var";
             this.ButtonToAddCurrentVariable.UseVisualStyleBackColor = true;
             this.ButtonToAddCurrentVariable.Click += new System.EventHandler(this.ButtonToAddCurrentVariable_Click);
-            // 
-            // AddToMainCode
-            // 
-            this.AddToMainCode.Location = new System.Drawing.Point(3, 120);
-            this.AddToMainCode.Name = "AddToMainCode";
-            this.AddToMainCode.Size = new System.Drawing.Size(229, 24);
-            this.AddToMainCode.TabIndex = 10;
-            this.AddToMainCode.Text = "Send to Code Base";
-            this.AddToMainCode.UseVisualStyleBackColor = true;
-            this.AddToMainCode.Click += new System.EventHandler(this.AddToMainCode_Click);
             // 
             // SpecialKeyLabel
             // 
@@ -814,16 +816,27 @@
             // 
             // TabForPageTwo
             // 
+            this.TabForPageTwo.AutoScroll = true;
             this.TabForPageTwo.Controls.Add(this.ModkeyButton);
             this.TabForPageTwo.Controls.Add(this.ButtonForCurrentMouseVariable);
             this.TabForPageTwo.Controls.Add(this.ButtonToAddMouseVars);
             this.TabForPageTwo.Location = new System.Drawing.Point(4, 22);
             this.TabForPageTwo.Name = "TabForPageTwo";
             this.TabForPageTwo.Padding = new System.Windows.Forms.Padding(3);
-            this.TabForPageTwo.Size = new System.Drawing.Size(235, 147);
+            this.TabForPageTwo.Size = new System.Drawing.Size(232, 151);
             this.TabForPageTwo.TabIndex = 1;
             this.TabForPageTwo.Text = "Page 2";
             this.TabForPageTwo.UseVisualStyleBackColor = true;
+            // 
+            // ModkeyButton
+            // 
+            this.ModkeyButton.Location = new System.Drawing.Point(6, 32);
+            this.ModkeyButton.Name = "ModkeyButton";
+            this.ModkeyButton.Size = new System.Drawing.Size(112, 23);
+            this.ModkeyButton.TabIndex = 1;
+            this.ModkeyButton.Text = "Add Saved Modkey";
+            this.ModkeyButton.UseVisualStyleBackColor = true;
+            this.ModkeyButton.Click += new System.EventHandler(this.ModkeyButton_Click);
             // 
             // ButtonForCurrentMouseVariable
             // 
@@ -831,7 +844,7 @@
             this.ButtonForCurrentMouseVariable.Name = "ButtonForCurrentMouseVariable";
             this.ButtonForCurrentMouseVariable.Size = new System.Drawing.Size(112, 23);
             this.ButtonForCurrentMouseVariable.TabIndex = 2;
-            this.ButtonForCurrentMouseVariable.Text = "Mouse Location Var";
+            this.ButtonForCurrentMouseVariable.Text = "Get Mouse Vars";
             this.ButtonForCurrentMouseVariable.UseVisualStyleBackColor = true;
             this.ButtonForCurrentMouseVariable.Click += new System.EventHandler(this.ButtonForCurrentMouseVariable_Click);
             // 
@@ -841,21 +854,92 @@
             this.ButtonToAddMouseVars.Name = "ButtonToAddMouseVars";
             this.ButtonToAddMouseVars.Size = new System.Drawing.Size(112, 23);
             this.ButtonToAddMouseVars.TabIndex = 6;
-            this.ButtonToAddMouseVars.Text = "Add Mouse Vars";
+            this.ButtonToAddMouseVars.Text = "Call Mouse Vars";
             this.ButtonToAddMouseVars.UseVisualStyleBackColor = true;
             this.ButtonToAddMouseVars.Click += new System.EventHandler(this.ButtonToAddMouseVars_Click);
             // 
+            // TabForPageThree
+            // 
+            this.TabForPageThree.AutoScroll = true;
+            this.TabForPageThree.Controls.Add(this.LabelForVarEqualTo);
+            this.TabForPageThree.Controls.Add(this.ButtonForVarEqualTo);
+            this.TabForPageThree.Controls.Add(this.ComboForEqualVarTwo);
+            this.TabForPageThree.Controls.Add(this.LabelForEqualVars);
+            this.TabForPageThree.Controls.Add(this.ComboForEqualVarOne);
+            this.TabForPageThree.Location = new System.Drawing.Point(4, 22);
+            this.TabForPageThree.Name = "TabForPageThree";
+            this.TabForPageThree.Size = new System.Drawing.Size(232, 151);
+            this.TabForPageThree.TabIndex = 3;
+            this.TabForPageThree.Text = "Variable";
+            this.TabForPageThree.UseVisualStyleBackColor = true;
+            // 
+            // LabelForVarEqualTo
+            // 
+            this.LabelForVarEqualTo.AutoSize = true;
+            this.LabelForVarEqualTo.Location = new System.Drawing.Point(22, 7);
+            this.LabelForVarEqualTo.Name = "LabelForVarEqualTo";
+            this.LabelForVarEqualTo.Size = new System.Drawing.Size(45, 13);
+            this.LabelForVarEqualTo.TabIndex = 4;
+            this.LabelForVarEqualTo.Text = "Variable";
+            // 
+            // ButtonForVarEqualTo
+            // 
+            this.ButtonForVarEqualTo.Location = new System.Drawing.Point(10, 90);
+            this.ButtonForVarEqualTo.Name = "ButtonForVarEqualTo";
+            this.ButtonForVarEqualTo.Size = new System.Drawing.Size(121, 23);
+            this.ButtonForVarEqualTo.TabIndex = 3;
+            this.ButtonForVarEqualTo.Text = "Add To Code Base";
+            this.ButtonForVarEqualTo.UseVisualStyleBackColor = true;
+            this.ButtonForVarEqualTo.Click += new System.EventHandler(this.ButtonForVarEqualTo_Click);
+            // 
+            // ComboForEqualVarTwo
+            // 
+            this.ComboForEqualVarTwo.FormattingEnabled = true;
+            this.ComboForEqualVarTwo.Location = new System.Drawing.Point(10, 63);
+            this.ComboForEqualVarTwo.Name = "ComboForEqualVarTwo";
+            this.ComboForEqualVarTwo.Size = new System.Drawing.Size(121, 21);
+            this.ComboForEqualVarTwo.TabIndex = 2;
+            // 
+            // LabelForEqualVars
+            // 
+            this.LabelForEqualVars.AutoSize = true;
+            this.LabelForEqualVars.Location = new System.Drawing.Point(22, 47);
+            this.LabelForEqualVars.Name = "LabelForEqualVars";
+            this.LabelForEqualVars.Size = new System.Drawing.Size(70, 13);
+            this.LabelForEqualVars.TabIndex = 1;
+            this.LabelForEqualVars.Text = "Is Equal To...";
+            // 
+            // ComboForEqualVarOne
+            // 
+            this.ComboForEqualVarOne.FormattingEnabled = true;
+            this.ComboForEqualVarOne.Location = new System.Drawing.Point(10, 23);
+            this.ComboForEqualVarOne.Name = "ComboForEqualVarOne";
+            this.ComboForEqualVarOne.Size = new System.Drawing.Size(121, 21);
+            this.ComboForEqualVarOne.TabIndex = 0;
+            // 
             // TabForPageFour
             // 
+            this.TabForPageFour.AutoScroll = true;
+            this.TabForPageFour.Controls.Add(this.CheckForMoveInsertionPoint);
             this.TabForPageFour.Controls.Add(this.CheckForSend);
             this.TabForPageFour.Controls.Add(this.CheckToInsertAtCursor);
             this.TabForPageFour.Controls.Add(this.CheckForNewLine);
             this.TabForPageFour.Location = new System.Drawing.Point(4, 22);
             this.TabForPageFour.Name = "TabForPageFour";
-            this.TabForPageFour.Size = new System.Drawing.Size(235, 147);
+            this.TabForPageFour.Size = new System.Drawing.Size(232, 151);
             this.TabForPageFour.TabIndex = 2;
             this.TabForPageFour.Text = "Settings";
             this.TabForPageFour.UseVisualStyleBackColor = true;
+            // 
+            // CheckForMoveInsertionPoint
+            // 
+            this.CheckForMoveInsertionPoint.AutoSize = true;
+            this.CheckForMoveInsertionPoint.Location = new System.Drawing.Point(10, 81);
+            this.CheckForMoveInsertionPoint.Name = "CheckForMoveInsertionPoint";
+            this.CheckForMoveInsertionPoint.Size = new System.Drawing.Size(123, 17);
+            this.CheckForMoveInsertionPoint.TabIndex = 22;
+            this.CheckForMoveInsertionPoint.Text = "Move Insertion Point";
+            this.CheckForMoveInsertionPoint.UseVisualStyleBackColor = true;
             // 
             // CheckForSend
             // 
@@ -1018,23 +1102,15 @@
             this.SendMsgBoxButton.UseVisualStyleBackColor = true;
             this.SendMsgBoxButton.Click += new System.EventHandler(this.SendMsgBoxButton_Click);
             // 
-            // CheckForConfirmClear
-            // 
-            this.CheckForConfirmClear.AutoSize = true;
-            this.CheckForConfirmClear.Location = new System.Drawing.Point(163, 7);
-            this.CheckForConfirmClear.Name = "CheckForConfirmClear";
-            this.CheckForConfirmClear.Size = new System.Drawing.Size(88, 17);
-            this.CheckForConfirmClear.TabIndex = 8;
-            this.CheckForConfirmClear.Text = "Confirm Clear";
-            this.CheckForConfirmClear.UseVisualStyleBackColor = true;
-            // 
             // TextInput
             // 
-            this.TextInput.Location = new System.Drawing.Point(3, 30);
+            this.TextInput.AcceptsReturn = true;
+            this.TextInput.Location = new System.Drawing.Point(4, 33);
             this.TextInput.Multiline = true;
             this.TextInput.Name = "TextInput";
-            this.TextInput.Size = new System.Drawing.Size(245, 47);
+            this.TextInput.Size = new System.Drawing.Size(237, 18);
             this.TextInput.TabIndex = 0;
+            this.TextInput.Text = " ";
             // 
             // TextTypeLabel
             // 
@@ -1047,9 +1123,9 @@
             // 
             // ButtonForClearingTextWindow
             // 
-            this.ButtonForClearingTextWindow.Location = new System.Drawing.Point(115, 3);
+            this.ButtonForClearingTextWindow.Location = new System.Drawing.Point(197, 57);
             this.ButtonForClearingTextWindow.Name = "ButtonForClearingTextWindow";
-            this.ButtonForClearingTextWindow.Size = new System.Drawing.Size(42, 23);
+            this.ButtonForClearingTextWindow.Size = new System.Drawing.Size(43, 23);
             this.ButtonForClearingTextWindow.TabIndex = 7;
             this.ButtonForClearingTextWindow.Text = "Clear";
             this.ButtonForClearingTextWindow.UseVisualStyleBackColor = true;
@@ -1413,7 +1489,7 @@
             // MainCode
             // 
             this.MainCode.AcceptsTab = true;
-            this.MainCode.Location = new System.Drawing.Point(269, 49);
+            this.MainCode.Location = new System.Drawing.Point(270, 49);
             this.MainCode.MaxLength = 99999;
             this.MainCode.Multiline = true;
             this.MainCode.Name = "MainCode";
@@ -1493,64 +1569,6 @@
             this.InputForQuickValue.Size = new System.Drawing.Size(87, 20);
             this.InputForQuickValue.TabIndex = 13;
             // 
-            // TabForPageThree
-            // 
-            this.TabForPageThree.Controls.Add(this.LabelForVarEqualTo);
-            this.TabForPageThree.Controls.Add(this.ButtonForVarEqualTo);
-            this.TabForPageThree.Controls.Add(this.ComboForEqualVarTwo);
-            this.TabForPageThree.Controls.Add(this.LabelForEqualVars);
-            this.TabForPageThree.Controls.Add(this.ComboForEqualVarOne);
-            this.TabForPageThree.Location = new System.Drawing.Point(4, 22);
-            this.TabForPageThree.Name = "TabForPageThree";
-            this.TabForPageThree.Size = new System.Drawing.Size(235, 147);
-            this.TabForPageThree.TabIndex = 3;
-            this.TabForPageThree.Text = "Variable";
-            this.TabForPageThree.UseVisualStyleBackColor = true;
-            // 
-            // ComboForEqualVarOne
-            // 
-            this.ComboForEqualVarOne.FormattingEnabled = true;
-            this.ComboForEqualVarOne.Location = new System.Drawing.Point(10, 23);
-            this.ComboForEqualVarOne.Name = "ComboForEqualVarOne";
-            this.ComboForEqualVarOne.Size = new System.Drawing.Size(121, 21);
-            this.ComboForEqualVarOne.TabIndex = 0;
-            // 
-            // LabelForEqualVars
-            // 
-            this.LabelForEqualVars.AutoSize = true;
-            this.LabelForEqualVars.Location = new System.Drawing.Point(22, 47);
-            this.LabelForEqualVars.Name = "LabelForEqualVars";
-            this.LabelForEqualVars.Size = new System.Drawing.Size(70, 13);
-            this.LabelForEqualVars.TabIndex = 1;
-            this.LabelForEqualVars.Text = "Is Equal To...";
-            // 
-            // ComboForEqualVarTwo
-            // 
-            this.ComboForEqualVarTwo.FormattingEnabled = true;
-            this.ComboForEqualVarTwo.Location = new System.Drawing.Point(10, 63);
-            this.ComboForEqualVarTwo.Name = "ComboForEqualVarTwo";
-            this.ComboForEqualVarTwo.Size = new System.Drawing.Size(121, 21);
-            this.ComboForEqualVarTwo.TabIndex = 2;
-            // 
-            // ButtonForVarEqualTo
-            // 
-            this.ButtonForVarEqualTo.Location = new System.Drawing.Point(10, 90);
-            this.ButtonForVarEqualTo.Name = "ButtonForVarEqualTo";
-            this.ButtonForVarEqualTo.Size = new System.Drawing.Size(121, 23);
-            this.ButtonForVarEqualTo.TabIndex = 3;
-            this.ButtonForVarEqualTo.Text = "Add To Code Base";
-            this.ButtonForVarEqualTo.UseVisualStyleBackColor = true;
-            this.ButtonForVarEqualTo.Click += new System.EventHandler(this.ButtonForVarEqualTo_Click);
-            // 
-            // LabelForVarEqualTo
-            // 
-            this.LabelForVarEqualTo.AutoSize = true;
-            this.LabelForVarEqualTo.Location = new System.Drawing.Point(22, 7);
-            this.LabelForVarEqualTo.Name = "LabelForVarEqualTo";
-            this.LabelForVarEqualTo.Size = new System.Drawing.Size(45, 13);
-            this.LabelForVarEqualTo.TabIndex = 4;
-            this.LabelForVarEqualTo.Text = "Variable";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1567,7 +1585,7 @@
             this.Controls.Add(this.MainCode);
             this.Controls.Add(this.MainTabs);
             this.Name = "MainForm";
-            this.Text = "+";
+            this.Text = "Auto Hot Key Visual Builder";
             this.MainTabs.ResumeLayout(false);
             this.TabMain.ResumeLayout(false);
             this.TabMain.PerformLayout();
@@ -1586,6 +1604,8 @@
             this.TabForPageOne.ResumeLayout(false);
             this.TabForPageOne.PerformLayout();
             this.TabForPageTwo.ResumeLayout(false);
+            this.TabForPageThree.ResumeLayout(false);
+            this.TabForPageThree.PerformLayout();
             this.TabForPageFour.ResumeLayout(false);
             this.TabForPageFour.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -1609,8 +1629,6 @@
             this.VariablesTab.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
-            this.TabForPageThree.ResumeLayout(false);
-            this.TabForPageThree.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1717,7 +1735,6 @@
         private System.Windows.Forms.Button ButtonForAddVarGlobal;
         private System.Windows.Forms.TextBox InputForQuickValue;
         private System.Windows.Forms.CheckBox CheckForAddToMsgBox;
-        private System.Windows.Forms.CheckBox CheckForConfirmClear;
         private System.Windows.Forms.ToolStripButton ImportFile;
         private System.Windows.Forms.Button ButtonForCurrentMouseVariable;
         private System.Windows.Forms.Button ButtonToAddMouseVars;
@@ -1742,6 +1759,8 @@
         private System.Windows.Forms.ComboBox ComboForEqualVarTwo;
         private System.Windows.Forms.Label LabelForEqualVars;
         private System.Windows.Forms.ComboBox ComboForEqualVarOne;
+        private System.Windows.Forms.CheckBox CheckForLargeTextBox;
+        private System.Windows.Forms.CheckBox CheckForMoveInsertionPoint;
     }
 }
 

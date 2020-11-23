@@ -14,6 +14,7 @@ namespace AHK_Visual_2._0
         String[] currXY = new String[4];
         int topTab = 71;
         int selectedTab = 0;
+        int activeLoops = 0;
         bool indent = false;
         bool hotKeySet = false;
         bool mousePosAdded = false;
@@ -106,39 +107,72 @@ namespace AHK_Visual_2._0
 
         private void CreateLoopButton_Click(object sender, EventArgs e)
         {
+            activeLoops++;
+
             EndLoopButtonGlobal.Enabled = true;
             EndLoopButton.Enabled = true;
-            MainCode.AppendText("Loop, " + LoopAmountBox.Value.ToString() + " {\r\n    ");
+
+            CheckForSend.Enabled = false;
             indent = true;
+
+            MainCode.AppendText("Loop, " + LoopAmountBox.Value.ToString() + " {\r\n");
+
+            Helper.Indent(MainCode, activeLoops, indent);
+
+            CheckForSend.Enabled = true;
         }
 
         private void EndLoopButton_Click(object sender, EventArgs e)
         {
-            EndLoopButtonGlobal.Enabled = false;
-            EndLoopButton.Enabled = false;
+            activeLoops--;
+
+            if (activeLoops == 0)
+            {
+                EndLoopButtonGlobal.Enabled = false;
+                EndLoopButton.Enabled = false;
+                indent = false;
+            }
+
             MainCode.AppendText("}\r\n");
-            indent = false;
+            Helper.Indent(MainCode, activeLoops, indent);
+
         }
 
         private void EndLoopButtonGlobal_Click(object sender, EventArgs e)
         {
-            EndLoopButtonGlobal.Enabled = false;
-            EndLoopButton.Enabled = false;
+            activeLoops--;
+
+
+            if (activeLoops == 0)
+            {
+                EndLoopButtonGlobal.Enabled = false;
+                EndLoopButton.Enabled = false;
+                indent = false;
+            }
+            
             MainCode.AppendText("}\r\n");
-            indent = false;
+            Helper.Indent(MainCode, activeLoops, indent);
         }
 
         private void SleepInsertButton_Click(object sender, EventArgs e)
         {
+            CheckForSend.Enabled = false;
             String text = "Sleep, " + SleepInput.Value;
 
             Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text, MainCode, selectedTab);
-            Helper.Indent(MainCode, indent);
+            Helper.Indent(MainCode, activeLoops, indent);
+
+            if (CheckForMoveInsertionPoint.Checked)
+            {
+                selectedTab += text.Length;
+            }
+            CheckForSend.Enabled = true;
         }
 
         private void ButtonForAddVariable_Click(object sender, EventArgs e)
         {
             bool isAdded = false;
+            CheckForSend.Enabled = false;
 
             if (InputForNameOfVar.Text.Length == 0)
             {
@@ -170,9 +204,15 @@ namespace AHK_Visual_2._0
             }
 
             String text = InputForNameOfVar.Text + " = " + InputForValueOfVariable.Text;
-
+            
             Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text, MainCode, selectedTab);
-            Helper.Indent(MainCode, indent);
+            Helper.Indent(MainCode, activeLoops, indent);
+
+            if (CheckForMoveInsertionPoint.Checked)
+            {
+                selectedTab += text.Length;
+            }
+            CheckForSend.Enabled = true;
         }
 
         private void ButtonForVariableHelp_Click(object sender, EventArgs e)
@@ -264,38 +304,29 @@ namespace AHK_Visual_2._0
 
         private void AddToMainCode_Click(object sender, EventArgs e)
         {
-            String send = "";
-            String newLine = "";
+            String text = TextInput.Text;
+            
+            Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text, MainCode, selectedTab);
+            Helper.Indent(MainCode, activeLoops, indent);
 
-            if (CheckForSend.Checked)
+            if (CheckForMoveInsertionPoint.Checked)
             {
-                send = "Send, ";
+                selectedTab += text.Length;
             }
-
-            if (CheckForNewLine.Checked)
-            {
-                newLine = "\r\n";
-            }
-
-
-            if (!insertAtCursor)
-            {
-                MainCode.AppendText(send + TextInput.Text + newLine);
-            }
-            else
-            {
-                MainCode.Text = MainCode.Text.Insert(selectedTab, send + TextInput.Text + newLine);
-            }
-            Helper.Indent(MainCode, indent);
         }
 
         private void SendMsgBoxButton_Click(object sender, EventArgs e)
         {
 
             String text = "MsgBox,, " + MsgBoxTitle.Text + ", " + MsgBoxTextInput.Text;
-            Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text, MainCode, selectedTab);
 
-            Helper.Indent(MainCode, indent);
+            Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text, MainCode, selectedTab);
+            Helper.Indent(MainCode, activeLoops, indent);
+
+            if (CheckForMoveInsertionPoint.Checked)
+            {
+                selectedTab += text.Length;
+            }
         }
 
         private void ButtonToAddCurrentVariable_Click(object sender, EventArgs e)
@@ -312,28 +343,34 @@ namespace AHK_Visual_2._0
 
         private void ButtonForClearingTextWindow_Click(object sender, EventArgs e)
         {
-            if (CheckForConfirmClear.Checked)
+            if(MessageBox.Show("Do you want to clear all?", "Clear all", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 TextInput.Text = "";
             }
-            CheckForConfirmClear.CheckState = CheckState.Unchecked;
         }
 
         private void ButtonForCurrentMouseVariable_Click(object sender, EventArgs e)
         {
-            mousePosAdded = true;
-
-            ComboForAllVariables.Items.Add("MouseX, ");
-            ComboForAllVariables.Items.Add("MouseY");
-            ComboForEqualVarOne.Items.Add("MouseX");
-            ComboForEqualVarOne.Items.Add("MouseY");
-            ComboForEqualVarTwo.Items.Add("MouseX");
-            ComboForEqualVarTwo.Items.Add("MouseY");
+            if (!mousePosAdded)
+            {
+                ComboForAllVariables.Items.Add("MouseX");
+                ComboForAllVariables.Items.Add("MouseY");
+                ComboForEqualVarOne.Items.Add("MouseX");
+                ComboForEqualVarOne.Items.Add("MouseY");
+                ComboForEqualVarTwo.Items.Add("MouseX");
+                ComboForEqualVarTwo.Items.Add("MouseY");
+            }
 
             String text = "MouseGetPos, MouseX, MouseY";
 
             Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text, MainCode, selectedTab);
-            Helper.Indent(MainCode, indent);
+            Helper.Indent(MainCode, activeLoops, indent);
+
+            if (CheckForMoveInsertionPoint.Checked)
+            {
+                selectedTab += text.Length;
+            }
+            mousePosAdded = true;
         }
 
         private void ButtonToAddMouseVars_Click(object sender, EventArgs e)
@@ -343,7 +380,12 @@ namespace AHK_Visual_2._0
             String text = "MouseMove, %MouseX%, %MouseY%";
 
             Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text, MainCode, selectedTab);
-            Helper.Indent(MainCode, indent);
+            Helper.Indent(MainCode, activeLoops, indent);
+
+            if (CheckForMoveInsertionPoint.Checked)
+            {
+                selectedTab += text.Length;
+            }
         }
 
         private void ButtonToSendMsgBoxToCode_Click(object sender, EventArgs e)
@@ -356,9 +398,14 @@ namespace AHK_Visual_2._0
             }
 
             String text = "InputBox, InputResult, " + InputForMessageBoxTitle.Text + ", " + InputForMessageBoxPrompt.Text;
+            
             Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text, MainCode, selectedTab);
+            Helper.Indent(MainCode, activeLoops, indent);
 
-            Helper.Indent(MainCode, indent);
+            if (CheckForMoveInsertionPoint.Checked)
+            {
+                selectedTab += text.Length;
+            }
             msgBoxVarAdded = true;
         }
 
@@ -376,6 +423,41 @@ namespace AHK_Visual_2._0
         private void CheckForSend_CheckedChanged(object sender, EventArgs e)
         {
             useSend = !useSend;
+        }
+
+        private void ButtonForVarEqualTo_Click(object sender, EventArgs e)
+        {
+            String text = ComboForEqualVarOne.Text + " := " + ComboForEqualVarTwo.Text;
+
+            Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text, MainCode, selectedTab);
+            if (CheckForMoveInsertionPoint.Checked)
+            {
+                selectedTab += text.Length;
+            }
+        }
+
+        private void CheckForLargeTextBox_CheckedChanged(object sender, EventArgs e)
+        {
+
+            if (CheckForLargeTextBox.Checked)
+            {
+                //Moved
+                tabControl2.Size = new Size(240, 111);
+                tabControl2.Location = new Point(4, 152);
+                TextInput.Size = new Size(237, 86);
+                AddToMainCode.Location = new Point(4, 122);
+                ButtonForClearingTextWindow.Location = new Point(197, 122);
+            }
+            else
+            {
+                //Default
+                tabControl2.Size = new Size(243, 173);
+                tabControl2.Location = new Point(3, 83);
+                TextInput.Size = new Size(237, 18);
+                TextInput.Location = new Point(3, 30);
+                AddToMainCode.Location = new Point(4, 57);
+                ButtonForClearingTextWindow.Location = new Point(197, 57);
+            }
         }
 
         //Text Tab End
@@ -466,10 +548,15 @@ namespace AHK_Visual_2._0
             StringBuilder sb = new StringBuilder();
             bool click = ClickCheck.Checked;
             bool xy = XYCheck.Checked;
-            string x = "";
-            string y = "";
-            string controlUsed = "MouseMove, ";
-            string toClick = "";
+            String x = "";
+            String y = "";
+            String controlUsed = "MouseMove, ";
+            String toClick = "";
+            String text;
+            String text2;
+
+            CheckForSend.Checked = false;
+
 
             if (xy)
             {
@@ -481,12 +568,22 @@ namespace AHK_Visual_2._0
             {
                 toClick = "Click";
             }
-
+              
             if (NumOfClickInput.Value == 1)
             {
-                String text = controlUsed + " " + x + ", " + y + "\r\n" + toClick;
+                text = controlUsed + " " + x + ", " + y;
+                text2 = toClick + "\r\n";
 
                 Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text, MainCode, selectedTab);
+                Helper.Indent(MainCode, activeLoops, indent);
+
+                Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text2, MainCode, selectedTab);
+                Helper.Indent(MainCode, activeLoops, indent);
+
+                if (CheckForMoveInsertionPoint.Checked)
+                {
+                    selectedTab += text.Length;
+                }
             }
             else
             {
@@ -497,17 +594,26 @@ namespace AHK_Visual_2._0
                 sb.Append(toClick + "\r\n");
                 sb.Append("}\r\n");
 
-                String text = sb.ToString();
+                text = sb.ToString();
 
                 Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text, MainCode, selectedTab);
+                Helper.Indent(MainCode, activeLoops, indent);
+
             }
-            Helper.Indent(MainCode, indent);
+
+            if (CheckForMoveInsertionPoint.Checked)
+            {
+                selectedTab += text.Length;
+            }
+
+            CheckForSend.Checked = true;
         }
 
         private void ButtonForMouseClickDrag_Click(object sender, EventArgs e)
         {
             String x1 = "X1", y1 = "Y1", x2 = "X2", y2 = "Y2", speed = UpDownSpeed.Value.ToString(), mouseButton;
             String temp;
+            CheckForSend.Checked = false;
 
             if (CheckForXY1.Checked)
             {
@@ -535,9 +641,15 @@ namespace AHK_Visual_2._0
             mouseButton = ComboForMouseButton.Text;
 
             String text = "MouseClickDrag, " + mouseButton + ", " + x1 + ", " + y1 + ", " + x2 + ", " + y2;
-            Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text, MainCode, selectedTab);
 
-            Helper.Indent(MainCode, indent);
+            Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text, MainCode, selectedTab);
+            Helper.Indent(MainCode, activeLoops, indent);
+
+            if (CheckForMoveInsertionPoint.Checked)
+            {
+                selectedTab += text.Length;
+            }
+            CheckForSend.Checked = true;
         }
 
         //Mouse Tab End
@@ -560,7 +672,7 @@ namespace AHK_Visual_2._0
         private void EndHotKey_Click(object sender, EventArgs e)
         {
             MainCode.AppendText("return\r\n");
-            Helper.Indent(MainCode, indent);
+            Helper.Indent(MainCode, activeLoops, indent);
         }
 
         private void ButtonForAddVarGlobal_Click(object sender, EventArgs e)
@@ -568,7 +680,12 @@ namespace AHK_Visual_2._0
             String text = InputForQuickValue.Text;
 
             Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text, MainCode, selectedTab);
-            Helper.Indent(MainCode, indent);
+            Helper.Indent(MainCode, activeLoops, indent);
+
+            if (CheckForMoveInsertionPoint.Checked)
+            {
+                selectedTab += text.Length;
+            }
         }
 
         private void ImportFile_Click(object sender, EventArgs e)
@@ -599,13 +716,6 @@ namespace AHK_Visual_2._0
         private void MainCode_Leave(object sender, EventArgs e)
         {
             selectedTab = MainCode.SelectionStart;
-        }
-
-        private void ButtonForVarEqualTo_Click(object sender, EventArgs e)
-        {
-            String text = ComboForEqualVarOne.Text + " := " + ComboForEqualVarTwo.Text;
-
-            Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text, MainCode, selectedTab);
         }
 
         //Tool Strip End
