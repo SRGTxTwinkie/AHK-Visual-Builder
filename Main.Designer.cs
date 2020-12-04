@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MainTabs = new System.Windows.Forms.TabControl();
             this.TabMain = new System.Windows.Forms.TabPage();
@@ -78,6 +79,8 @@
             this.AddToMainCode = new System.Windows.Forms.Button();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.TabForPageOne = new System.Windows.Forms.TabPage();
+            this.CheckForDontAdd = new System.Windows.Forms.CheckBox();
+            this.ButtonForSpecialKeyDown = new System.Windows.Forms.Button();
             this.ButtonToAddCurrentVariable = new System.Windows.Forms.Button();
             this.SpecialKeyLabel = new System.Windows.Forms.Label();
             this.SpecialKeyInput = new System.Windows.Forms.ComboBox();
@@ -154,6 +157,16 @@
             this.EndHotKey = new System.Windows.Forms.Button();
             this.ButtonForAddVarGlobal = new System.Windows.Forms.Button();
             this.InputForQuickValue = new System.Windows.Forms.TextBox();
+            this.ButtonForSpecialKeyUp = new System.Windows.Forms.Button();
+            this.TextBoxForFileNameGlobal = new System.Windows.Forms.TextBox();
+            this.LabelForFileName = new System.Windows.Forms.Label();
+            this.ButtonForFileExportGlobal = new System.Windows.Forms.Button();
+            this.RightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.saveFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.insertAtCursorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.useNewLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.useSendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.moveInsertionPorintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainTabs.SuspendLayout();
             this.TabMain.SuspendLayout();
             this.TabMouse.SuspendLayout();
@@ -182,14 +195,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.SleepInput)).BeginInit();
             this.VariablesTab.SuspendLayout();
             this.toolStrip2.SuspendLayout();
+            this.RightClickMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainTabs
             // 
+            this.MainTabs.ContextMenuStrip = this.RightClickMenu;
             this.MainTabs.Controls.Add(this.TabMain);
             this.MainTabs.Controls.Add(this.TabMouse);
             this.MainTabs.Controls.Add(this.TabKeyBoard);
             this.MainTabs.Controls.Add(this.TabSpecial);
+            this.MainTabs.HotTrack = true;
             this.MainTabs.Location = new System.Drawing.Point(4, 26);
             this.MainTabs.Name = "MainTabs";
             this.MainTabs.SelectedIndex = 0;
@@ -238,9 +254,9 @@
             this.FileNameLabel.AutoSize = true;
             this.FileNameLabel.Location = new System.Drawing.Point(6, 89);
             this.FileNameLabel.Name = "FileNameLabel";
-            this.FileNameLabel.Size = new System.Drawing.Size(183, 13);
+            this.FileNameLabel.Size = new System.Drawing.Size(54, 13);
             this.FileNameLabel.TabIndex = 2;
-            this.FileNameLabel.Text = "File Name | Press enter when finished\r\n";
+            this.FileNameLabel.Text = "File Name";
             // 
             // FileNameInput
             // 
@@ -248,7 +264,7 @@
             this.FileNameInput.Name = "FileNameInput";
             this.FileNameInput.Size = new System.Drawing.Size(239, 20);
             this.FileNameInput.TabIndex = 3;
-            this.FileNameInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FileNameInput_KeyDown);
+            this.FileNameInput.TextChanged += new System.EventHandler(this.FileNameInput_TextChanged);
             // 
             // ExportButton
             // 
@@ -739,6 +755,8 @@
             // TabForPageOne
             // 
             this.TabForPageOne.AutoScroll = true;
+            this.TabForPageOne.Controls.Add(this.CheckForDontAdd);
+            this.TabForPageOne.Controls.Add(this.ButtonForSpecialKeyDown);
             this.TabForPageOne.Controls.Add(this.ButtonToAddCurrentVariable);
             this.TabForPageOne.Controls.Add(this.SpecialKeyLabel);
             this.TabForPageOne.Controls.Add(this.SpecialKeyInput);
@@ -751,6 +769,28 @@
             this.TabForPageOne.TabIndex = 0;
             this.TabForPageOne.Text = "Page 1";
             this.TabForPageOne.UseVisualStyleBackColor = true;
+            // 
+            // CheckForDontAdd
+            // 
+            this.CheckForDontAdd.AutoSize = true;
+            this.CheckForDontAdd.Checked = true;
+            this.CheckForDontAdd.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CheckForDontAdd.Location = new System.Drawing.Point(120, 50);
+            this.CheckForDontAdd.Name = "CheckForDontAdd";
+            this.CheckForDontAdd.Size = new System.Drawing.Size(85, 17);
+            this.CheckForDontAdd.TabIndex = 11;
+            this.CheckForDontAdd.Text = "Add To Text";
+            this.CheckForDontAdd.UseVisualStyleBackColor = true;
+            // 
+            // ButtonForSpecialKeyDown
+            // 
+            this.ButtonForSpecialKeyDown.Location = new System.Drawing.Point(119, 68);
+            this.ButtonForSpecialKeyDown.Name = "ButtonForSpecialKeyDown";
+            this.ButtonForSpecialKeyDown.Size = new System.Drawing.Size(110, 23);
+            this.ButtonForSpecialKeyDown.TabIndex = 10;
+            this.ButtonForSpecialKeyDown.Text = "Special Key Down";
+            this.ButtonForSpecialKeyDown.UseVisualStyleBackColor = true;
+            this.ButtonForSpecialKeyDown.Click += new System.EventHandler(this.ButtonForSpecialKeyDown_Click);
             // 
             // ButtonToAddCurrentVariable
             // 
@@ -779,6 +819,7 @@
             "{CapsLock} ",
             "{Space} ",
             "{Tab} ",
+            "{Alt}",
             "{Enter} ",
             "{Escape} ",
             "{Backspace} ",
@@ -807,7 +848,7 @@
             // CheckForAddToMsgBox
             // 
             this.CheckForAddToMsgBox.AutoSize = true;
-            this.CheckForAddToMsgBox.Location = new System.Drawing.Point(10, 48);
+            this.CheckForAddToMsgBox.Location = new System.Drawing.Point(5, 50);
             this.CheckForAddToMsgBox.Name = "CheckForAddToMsgBox";
             this.CheckForAddToMsgBox.Size = new System.Drawing.Size(98, 17);
             this.CheckForAddToMsgBox.TabIndex = 5;
@@ -936,9 +977,9 @@
             this.CheckForMoveInsertionPoint.AutoSize = true;
             this.CheckForMoveInsertionPoint.Location = new System.Drawing.Point(10, 81);
             this.CheckForMoveInsertionPoint.Name = "CheckForMoveInsertionPoint";
-            this.CheckForMoveInsertionPoint.Size = new System.Drawing.Size(123, 17);
+            this.CheckForMoveInsertionPoint.Size = new System.Drawing.Size(162, 30);
             this.CheckForMoveInsertionPoint.TabIndex = 22;
-            this.CheckForMoveInsertionPoint.Text = "Move Insertion Point";
+            this.CheckForMoveInsertionPoint.Text = "Move Insertion Point To \r\nEnd When Adding New Text";
             this.CheckForMoveInsertionPoint.UseVisualStyleBackColor = true;
             // 
             // CheckForSend
@@ -953,6 +994,7 @@
             this.CheckForSend.Text = "Use \"Send\"";
             this.CheckForSend.UseVisualStyleBackColor = true;
             this.CheckForSend.CheckedChanged += new System.EventHandler(this.CheckForSend_CheckedChanged);
+            this.CheckForSend.Click += new System.EventHandler(this.CheckForSend_Click);
             // 
             // CheckToInsertAtCursor
             // 
@@ -1473,7 +1515,7 @@
             // savedModifierLabel
             // 
             this.savedModifierLabel.AutoSize = true;
-            this.savedModifierLabel.Location = new System.Drawing.Point(496, 29);
+            this.savedModifierLabel.Location = new System.Drawing.Point(589, 33);
             this.savedModifierLabel.Name = "savedModifierLabel";
             this.savedModifierLabel.Size = new System.Drawing.Size(83, 13);
             this.savedModifierLabel.TabIndex = 10;
@@ -1481,20 +1523,21 @@
             // 
             // savedModifierInput
             // 
-            this.savedModifierInput.Location = new System.Drawing.Point(428, 26);
+            this.savedModifierInput.Location = new System.Drawing.Point(592, 57);
             this.savedModifierInput.Name = "savedModifierInput";
-            this.savedModifierInput.Size = new System.Drawing.Size(66, 20);
+            this.savedModifierInput.Size = new System.Drawing.Size(77, 20);
             this.savedModifierInput.TabIndex = 4;
             // 
             // MainCode
             // 
             this.MainCode.AcceptsTab = true;
-            this.MainCode.Location = new System.Drawing.Point(270, 49);
+            this.MainCode.ContextMenuStrip = this.RightClickMenu;
+            this.MainCode.Location = new System.Drawing.Point(270, 81);
             this.MainCode.MaxLength = 99999;
             this.MainCode.Multiline = true;
             this.MainCode.Name = "MainCode";
             this.MainCode.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.MainCode.Size = new System.Drawing.Size(495, 407);
+            this.MainCode.Size = new System.Drawing.Size(495, 375);
             this.MainCode.TabIndex = 1;
             this.MainCode.Text = "#NoEnv\r\n#Warn\r\nSetWorkingDir %A_ScriptDir%\r\nCoordMode, Mouse, Screen\r\n\r\n\r\n";
             this.MainCode.Leave += new System.EventHandler(this.MainCode_Leave);
@@ -1502,9 +1545,9 @@
             // EndLoopButtonGlobal
             // 
             this.EndLoopButtonGlobal.Enabled = false;
-            this.EndLoopButtonGlobal.Location = new System.Drawing.Point(350, 25);
+            this.EndLoopButtonGlobal.Location = new System.Drawing.Point(449, 56);
             this.EndLoopButtonGlobal.Name = "EndLoopButtonGlobal";
-            this.EndLoopButtonGlobal.Size = new System.Drawing.Size(75, 22);
+            this.EndLoopButtonGlobal.Size = new System.Drawing.Size(75, 23);
             this.EndLoopButtonGlobal.TabIndex = 3;
             this.EndLoopButtonGlobal.Text = "End Loop";
             this.EndLoopButtonGlobal.UseVisualStyleBackColor = true;
@@ -1512,6 +1555,7 @@
             // 
             // toolStrip2
             // 
+            this.toolStrip2.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripButtonExport,
             this.ImportFile});
@@ -1544,7 +1588,7 @@
             // 
             // EndHotKey
             // 
-            this.EndHotKey.Location = new System.Drawing.Point(269, 25);
+            this.EndHotKey.Location = new System.Drawing.Point(270, 57);
             this.EndHotKey.Name = "EndHotKey";
             this.EndHotKey.Size = new System.Drawing.Size(75, 22);
             this.EndHotKey.TabIndex = 2;
@@ -1554,9 +1598,9 @@
             // 
             // ButtonForAddVarGlobal
             // 
-            this.ButtonForAddVarGlobal.Location = new System.Drawing.Point(678, 25);
+            this.ButtonForAddVarGlobal.Location = new System.Drawing.Point(678, 29);
             this.ButtonForAddVarGlobal.Name = "ButtonForAddVarGlobal";
-            this.ButtonForAddVarGlobal.Size = new System.Drawing.Size(86, 22);
+            this.ButtonForAddVarGlobal.Size = new System.Drawing.Size(87, 22);
             this.ButtonForAddVarGlobal.TabIndex = 12;
             this.ButtonForAddVarGlobal.Text = "Add Quick Var";
             this.ButtonForAddVarGlobal.UseVisualStyleBackColor = true;
@@ -1564,17 +1608,114 @@
             // 
             // InputForQuickValue
             // 
-            this.InputForQuickValue.Location = new System.Drawing.Point(588, 26);
+            this.InputForQuickValue.Location = new System.Drawing.Point(678, 57);
             this.InputForQuickValue.Name = "InputForQuickValue";
             this.InputForQuickValue.Size = new System.Drawing.Size(87, 20);
             this.InputForQuickValue.TabIndex = 13;
             // 
+            // ButtonForSpecialKeyUp
+            // 
+            this.ButtonForSpecialKeyUp.AutoSize = true;
+            this.ButtonForSpecialKeyUp.Enabled = false;
+            this.ButtonForSpecialKeyUp.Location = new System.Drawing.Point(351, 56);
+            this.ButtonForSpecialKeyUp.Name = "ButtonForSpecialKeyUp";
+            this.ButtonForSpecialKeyUp.Size = new System.Drawing.Size(92, 23);
+            this.ButtonForSpecialKeyUp.TabIndex = 14;
+            this.ButtonForSpecialKeyUp.Text = "Special Key Up";
+            this.ButtonForSpecialKeyUp.UseVisualStyleBackColor = true;
+            this.ButtonForSpecialKeyUp.Click += new System.EventHandler(this.ButtonForSpecialKeyUp_Click);
+            // 
+            // TextBoxForFileNameGlobal
+            // 
+            this.TextBoxForFileNameGlobal.Location = new System.Drawing.Point(270, 34);
+            this.TextBoxForFileNameGlobal.Name = "TextBoxForFileNameGlobal";
+            this.TextBoxForFileNameGlobal.ReadOnly = true;
+            this.TextBoxForFileNameGlobal.Size = new System.Drawing.Size(173, 20);
+            this.TextBoxForFileNameGlobal.TabIndex = 15;
+            // 
+            // LabelForFileName
+            // 
+            this.LabelForFileName.AutoSize = true;
+            this.LabelForFileName.Location = new System.Drawing.Point(269, 18);
+            this.LabelForFileName.Name = "LabelForFileName";
+            this.LabelForFileName.Size = new System.Drawing.Size(54, 13);
+            this.LabelForFileName.TabIndex = 16;
+            this.LabelForFileName.Text = "File Name";
+            // 
+            // ButtonForFileExportGlobal
+            // 
+            this.ButtonForFileExportGlobal.Enabled = false;
+            this.ButtonForFileExportGlobal.Location = new System.Drawing.Point(449, 33);
+            this.ButtonForFileExportGlobal.Name = "ButtonForFileExportGlobal";
+            this.ButtonForFileExportGlobal.Size = new System.Drawing.Size(75, 23);
+            this.ButtonForFileExportGlobal.TabIndex = 17;
+            this.ButtonForFileExportGlobal.Text = "Export File";
+            this.ButtonForFileExportGlobal.UseVisualStyleBackColor = true;
+            this.ButtonForFileExportGlobal.Click += new System.EventHandler(this.ButtonForFileExportGlobal_Click);
+            // 
+            // RightClickMenu
+            // 
+            this.RightClickMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveFileToolStripMenuItem,
+            this.insertAtCursorToolStripMenuItem,
+            this.useNewLineToolStripMenuItem,
+            this.useSendToolStripMenuItem,
+            this.moveInsertionPorintToolStripMenuItem});
+            this.RightClickMenu.Name = "RightClickMenu";
+            this.RightClickMenu.Size = new System.Drawing.Size(185, 114);
+            // 
+            // saveFileToolStripMenuItem
+            // 
+            this.saveFileToolStripMenuItem.Name = "saveFileToolStripMenuItem";
+            this.saveFileToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.saveFileToolStripMenuItem.Text = "Save File";
+            this.saveFileToolStripMenuItem.Click += new System.EventHandler(this.saveFileToolStripMenuItem_Click);
+            // 
+            // insertAtCursorToolStripMenuItem
+            // 
+            this.insertAtCursorToolStripMenuItem.CheckOnClick = true;
+            this.insertAtCursorToolStripMenuItem.Name = "insertAtCursorToolStripMenuItem";
+            this.insertAtCursorToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.insertAtCursorToolStripMenuItem.Text = "Insert At Cursor";
+            this.insertAtCursorToolStripMenuItem.Click += new System.EventHandler(this.insertAtCursorToolStripMenuItem_Click);
+            // 
+            // useNewLineToolStripMenuItem
+            // 
+            this.useNewLineToolStripMenuItem.Checked = true;
+            this.useNewLineToolStripMenuItem.CheckOnClick = true;
+            this.useNewLineToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.useNewLineToolStripMenuItem.Name = "useNewLineToolStripMenuItem";
+            this.useNewLineToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.useNewLineToolStripMenuItem.Text = "Use New Line";
+            this.useNewLineToolStripMenuItem.Click += new System.EventHandler(this.useNewLineToolStripMenuItem_Click);
+            // 
+            // useSendToolStripMenuItem
+            // 
+            this.useSendToolStripMenuItem.Checked = true;
+            this.useSendToolStripMenuItem.CheckOnClick = true;
+            this.useSendToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.useSendToolStripMenuItem.Name = "useSendToolStripMenuItem";
+            this.useSendToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.useSendToolStripMenuItem.Text = "Use \"Send\"";
+            this.useSendToolStripMenuItem.Click += new System.EventHandler(this.useSendToolStripMenuItem_Click);
+            // 
+            // moveInsertionPorintToolStripMenuItem
+            // 
+            this.moveInsertionPorintToolStripMenuItem.CheckOnClick = true;
+            this.moveInsertionPorintToolStripMenuItem.Name = "moveInsertionPorintToolStripMenuItem";
+            this.moveInsertionPorintToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.moveInsertionPorintToolStripMenuItem.Text = "Move Insertion Point";
+            this.moveInsertionPorintToolStripMenuItem.Click += new System.EventHandler(this.moveInsertionPorintToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(776, 465);
+            this.Controls.Add(this.ButtonForFileExportGlobal);
+            this.Controls.Add(this.LabelForFileName);
+            this.Controls.Add(this.TextBoxForFileNameGlobal);
+            this.Controls.Add(this.ButtonForSpecialKeyUp);
             this.Controls.Add(this.InputForQuickValue);
             this.Controls.Add(this.ButtonForAddVarGlobal);
             this.Controls.Add(this.EndHotKey);
@@ -1584,8 +1725,16 @@
             this.Controls.Add(this.EndLoopButtonGlobal);
             this.Controls.Add(this.MainCode);
             this.Controls.Add(this.MainTabs);
+            this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(792, 504);
+            this.MinimumSize = new System.Drawing.Size(792, 504);
             this.Name = "MainForm";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Tag = "AHKVS2.0";
             this.Text = "Auto Hot Key Visual Builder";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.MainTabs.ResumeLayout(false);
             this.TabMain.ResumeLayout(false);
             this.TabMain.PerformLayout();
@@ -1629,6 +1778,7 @@
             this.VariablesTab.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
+            this.RightClickMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1761,6 +1911,18 @@
         private System.Windows.Forms.ComboBox ComboForEqualVarOne;
         private System.Windows.Forms.CheckBox CheckForLargeTextBox;
         private System.Windows.Forms.CheckBox CheckForMoveInsertionPoint;
+        private System.Windows.Forms.Button ButtonForSpecialKeyDown;
+        private System.Windows.Forms.Button ButtonForSpecialKeyUp;
+        private System.Windows.Forms.TextBox TextBoxForFileNameGlobal;
+        private System.Windows.Forms.Label LabelForFileName;
+        private System.Windows.Forms.Button ButtonForFileExportGlobal;
+        private System.Windows.Forms.CheckBox CheckForDontAdd;
+        private System.Windows.Forms.ContextMenuStrip RightClickMenu;
+        private System.Windows.Forms.ToolStripMenuItem saveFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem insertAtCursorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem useNewLineToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem useSendToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem moveInsertionPorintToolStripMenuItem;
     }
 }
 

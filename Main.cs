@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Windows.Input;
+using System;
 using System.Collections.Generic; 
 using System.Drawing;
 using System.IO;
@@ -12,6 +13,7 @@ namespace AHK_Visual_2._0
     {
         String lastModKey;
         String[] currXY = new String[4];
+        String selectedSpecialKey;
         int topTab = 71;
         int selectedTab = 0;
         int activeLoops = 0;
@@ -22,12 +24,48 @@ namespace AHK_Visual_2._0
         bool insertAtCursor = false;
         bool newLine = false;
         bool useSend = false;
-
+        bool checkForSend = true;
+        bool checkForNewLine = true;
+        bool checkForInsert = false;
 
         public MainForm()
         {
             InitializeComponent();
         }
+
+        //Right Click Menu Start
+
+        private void moveInsertionPorintToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            checkForInsert = !checkForInsert;
+            CheckForMoveInsertionPoint.Checked = !CheckForMoveInsertionPoint.Checked;
+        }
+
+        private void useSendToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            checkForSend = !checkForSend;
+            CheckForSend.Checked = !CheckForSend.Checked;
+        }
+
+        private void useNewLineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            checkForNewLine = !checkForNewLine;
+            CheckForNewLine.Checked = !CheckForNewLine.Checked;
+        }
+
+        private void insertAtCursorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            checkForInsert = !checkForInsert;
+            CheckToInsertAtCursor.Checked = !CheckToInsertAtCursor.Checked;
+        }
+
+        private void saveFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportButton_Click(null, null);
+        }
+
+        //Right Click Menu Stop
+
 
         private void CreateFile(string path, string dataToWrite)
         {
@@ -92,7 +130,7 @@ namespace AHK_Visual_2._0
             lastModKey = modifierKeyInput.Text;
         }
 
-        private void modifierKeyInput_KeyDown(Object sender, KeyEventArgs e)
+        private void modifierKeyInput_KeyDown(Object sender, System.Windows.Forms.KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Back)
             {
@@ -233,32 +271,51 @@ namespace AHK_Visual_2._0
 
         private void hotKeyAssignButton_Click(object sender, EventArgs e)
         {
+            String text;
             hotKeySet = true;
             if (!CheckForTopOfCode.Checked)
             {
-                MainCode.AppendText(savedModifierInput.Text + "::\r\n");
+                text = savedModifierInput.Text + "::\r\n";
+
+                CheckForSend.Checked = false;
+
+                Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text, MainCode, selectedTab);
+                Helper.Indent(MainCode, activeLoops, indent);
+
+                CheckForSend.Checked = checkForSend;
                 return;
             }
+            else 
+            {
+                MainCode.Text = MainCode.Text.Insert(70, "\r\n" + savedModifierInput.Text + "::\r\n");
+                topTab += savedModifierInput.TextLength + 3;
+            }
 
-            MainCode.Text = MainCode.Text.Insert(70, "\r\n" + savedModifierInput.Text + "::\r\n");
-            topTab += savedModifierInput.TextLength + 3;
         }
 
-        private void FileNameInput_KeyDown(object sender, KeyEventArgs e)
+        private void FileNameInput_TextChanged(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (FileNameInput.TextLength <= 0)
+            {
+                ExportButton.Enabled = false;
+                ChangeNameButton.Enabled = false;
+                ToolStripButtonExport.Enabled = false;
+                TextBoxForFileNameGlobal.Text = "";
+                ButtonForFileExportGlobal.Enabled = false;
+            }
+            else
             {
                 ExportButton.Enabled = true;
-                FileNameInput.Enabled = false;
                 ChangeNameButton.Enabled = true;
                 ToolStripButtonExport.Enabled = true;
+                TextBoxForFileNameGlobal.Text = FileNameInput.Text + ".ahk";
+                ButtonForFileExportGlobal.Enabled = true;
             }
         }
 
         private void FileNameInput_KeyDown()
         {
             ExportButton.Enabled = true;
-            FileNameInput.Enabled = false;
             ChangeNameButton.Enabled = true;
             ToolStripButtonExport.Enabled = true;
         }
@@ -299,7 +356,16 @@ namespace AHK_Visual_2._0
 
         private void SpecialKeyInput_SelectedIndexChanged(object sender, EventArgs e)
         {
-            TextInput.AppendText(SpecialKeyInput.Text);
+            if (CheckForDontAdd.Checked)
+            {
+                TextInput.AppendText(SpecialKeyInput.Text);
+                selectedSpecialKey = SpecialKeyInput.Text;
+                ButtonForSpecialKeyUp.Enabled = true;
+            }
+            else
+            {
+                ButtonForSpecialKeyUp.Enabled = true;
+            }
         }
 
         private void AddToMainCode_Click(object sender, EventArgs e)
@@ -413,16 +479,23 @@ namespace AHK_Visual_2._0
         private void CheckToInsertAtCursor_CheckedChanged(object sender, EventArgs e)
         {
             insertAtCursor = !insertAtCursor;
+            checkForInsert = !checkForInsert;
         }
 
         private void CheckForNewLine_CheckedChanged(object sender, EventArgs e)
         {
             newLine = !newLine;
+            checkForNewLine = !checkForNewLine;
         }
 
         private void CheckForSend_CheckedChanged(object sender, EventArgs e)
         {
             useSend = !useSend;
+        }
+
+        private void CheckForSend_Click(object sender, EventArgs e)
+        {
+            checkForSend = !checkForSend;
         }
 
         private void ButtonForVarEqualTo_Click(object sender, EventArgs e)
@@ -458,6 +531,27 @@ namespace AHK_Visual_2._0
                 AddToMainCode.Location = new Point(4, 57);
                 ButtonForClearingTextWindow.Location = new Point(197, 57);
             }
+        }
+
+        private void ButtonForSpecialKeyDown_Click(object sender, EventArgs e)
+        {
+            if(SpecialKeyInput.Text.Length == 0)
+            {
+                return;
+            }
+
+            String text = "{" + SpecialKeyInput.Text.Substring(1, SpecialKeyInput.Text.Length - 3) + " Down}";
+
+            Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text, MainCode, selectedTab);
+            Helper.Indent(MainCode, activeLoops, indent);
+        }
+
+        private void ButtonForSpecialKeyUp_Click(object sender, EventArgs e)
+        {
+            String text = "{" + SpecialKeyInput.Text.Substring(1, SpecialKeyInput.Text.Length - 3) + " Up}";
+
+            Helper.WriteToBox(CheckToInsertAtCursor, CheckForNewLine, CheckForSend, text, MainCode, selectedTab);
+            Helper.Indent(MainCode, activeLoops, indent);
         }
 
         //Text Tab End
@@ -710,12 +804,35 @@ namespace AHK_Visual_2._0
 
             hotKeySet = true;
             FileNameInput.Text = Path.GetFileNameWithoutExtension(fileName);
+            TextBoxForFileNameGlobal.Text = Path.GetFileName(fileName);
             FileNameInput_KeyDown();
         }
 
         private void MainCode_Leave(object sender, EventArgs e)
         {
             selectedTab = MainCode.SelectionStart;
+        }
+
+        private void ButtonForFileExportGlobal_Click(object sender, EventArgs e)
+        {
+            ExportButton_Click(null, null);
+        }
+
+
+        private void MainForm_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.S && e.Modifiers == Keys.Control)
+            {
+
+                if(FileNameInput.TextLength == 0)
+                {
+                    MessageBox.Show("Enter a name for the file before saving", "File Name Needed");
+                }
+                else
+                {
+                    ExportButton_Click(null, null);
+                }
+            }
         }
 
         //Tool Strip End
